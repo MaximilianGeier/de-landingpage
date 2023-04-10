@@ -1,4 +1,3 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const StyleLintPlugin = require("stylelint-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -18,13 +17,12 @@ module.exports = {
         path: path.join(__dirname, "build"),
 
         publicPath: NODE_ENV === "development" ? "/" : "./",
-        //filename: "index.js",
         assetModuleFilename: path.join(
             "src",
             "images",
             "[name].[contenthash][ext]"
         ),
-        filename: "[name].js",
+        filename: "js/[name].js",
         chunkFilename: "static/js/[name].chunk.js",
     },
     optimization: {
@@ -42,17 +40,15 @@ module.exports = {
             {
                 // pug
                 test: /\.pug$/,
-                //include: path.join(__dirname, "src", "page"),
                 loader: PugPlugin.loader,
-                // loader: "pug-loader",
             },
             {
                 // обработка CSS
                 test: /\.(pcss|css)$/i,
                 use: [
-                    NODE_ENV === "development"
-                        ? "style-loader"
-                        : MiniCssExtractPlugin.loader,
+                    {
+                        loader: "style-loader",
+                    },
                     {
                         loader: "css-loader",
                         options: {
@@ -78,26 +74,20 @@ module.exports = {
                 type: "asset/resource",
             },
             {
-                //fonts
-                test: /\.(woff2?|eot|ttf|otf)$/i,
-                type: "javascript/auto",
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            name: "[name].[ext]",
-                            outputPath: "fonts/",
-                        },
-                    },
-                ],
+                test: /\.(woff|woff2|eot|ttf|otf|svg)$/i,
+                type: "asset/resource",
+                generator: {
+                    // output filename of fonts
+                    filename: "assets/fonts/[name][ext][query]",
+                },
             },
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            //css
-            filename: "styles/[name].css",
-        }),
+        // new MiniCssExtractPlugin({
+        //     //css
+        //     filename: "styles/[name].css",
+        // }),
         new StyleLintPlugin({
             configFile: path.join(__dirname, "stylelint.config.js"),
             context: path.join(__dirname, "src", "styles"),

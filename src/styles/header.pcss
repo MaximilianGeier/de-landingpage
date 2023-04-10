@@ -1,0 +1,115 @@
+.header__wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 40px 83px 0 83px;
+
+}
+
+/*hamburger menu*/
+a
+{
+    text-decoration: none;
+    color: var(--white);
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: var(--blue_01);
+    }
+}
+
+.menu__items
+{
+    position: absolute;
+    overflow: hidden;
+    right: 0;
+    top: 10px;
+    border-radius: 20px;
+
+    background-color: var(--blue_04);
+    transform: translate(-50%, -50%);
+
+    transition: all 0.5s ease-out;
+    width: 0;
+    height: 0;
+}
+
+.hamburger-menu
+{
+    display: block;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+
+    z-index: 1;
+
+    user-select: none;
+
+    input {
+        display: block;
+        width: 40px;
+        height: 32px;
+        position: absolute;
+        top: -7px;
+        left: -5px;
+
+        cursor: pointer;
+        opacity: 0;
+        z-index: 2;
+
+        -webkit-touch-callout: none;
+    }
+    span {
+        display: block;
+        width: 32px;
+        height: 4px;
+        margin-bottom: 5px;
+        position: relative;
+
+        background: var(--blue_03);
+
+        z-index: 1;
+
+        transform-origin: 4px 0;
+
+        transition: transform 0.4s ease-out,
+        background 0.5s ease-out,
+        opacity 0.55s ease;
+        &:first-child {
+            transform-origin: 0 0;
+        }
+        &:nth-last-child(2) {
+            transform-origin: 0 100%;
+        }
+    }
+
+    li {
+        padding: 10px 0;
+        font-size: 22px;
+    }
+
+    input:checked {
+        ~ .menu__items {
+            padding: 20px 0 20px 30px;
+            width: 300px;
+            height: fit-content;
+            transform: translateY(-20px);
+            opacity: 1;
+        }
+        ~ span
+        {
+            opacity: 1;
+            transform: rotate(45deg) translate(-2px, -1px);
+            background: var(--blue_01);
+        }
+        ~ span:nth-last-child(2) {
+            opacity: 1;
+            transform: rotate(-45deg) translate(0, -1px);
+        }
+        ~ span:nth-last-child(3) {
+            opacity: 0;
+            transform: rotate(0deg) scale(0.2, 0.2);
+        }
+    }
+}

@@ -1,0 +1,13 @@
+form#js-send-msg-form( action="" method="post" style="display: none;")
+    h3 SEND US MESSAGE
+    div(class="form__item")
+        label Full Name
+        input#name(type="text" name="name" placeholder="Your Name")
+    div(class="form__item")
+        label Email
+        input#email(type="email" name="email" placeholder="Your Email")
+    div(class="form__item")
+        label Message
+        textarea#message(name="msg" placeholder="Your Message")
+    div(class="form__item")
+        button(type="submit" class="standard-btn") SUBMIT
